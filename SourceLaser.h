@@ -10,6 +10,7 @@ class SourceLaser
 
 public:
 	SourceLaser(int Length, int Height);
+	
 	~SourceLaser() {};
 
 
@@ -22,6 +23,8 @@ public:
 	bool MoveCheck ;
 	int CoordinatesX, CoordinatesY;
 	bool LaserMove;
+	sf::Clock clock;
+	sf::Time ElapsedTime;
 	Sat CheckMirrorCollision() { return Sat(Laser); }
 	Collider getCollider() { return Collider(Laser); }
 };

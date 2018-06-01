@@ -20,14 +20,17 @@ void Sat::getMirrorVectors(RectangleShape Object)
 	Vector2f Size = Object.getSize();
 	float Diagonal = sqrt((Size.x*Size.x)/4 + (Size.y*Size.y)/4);
 	float Angle = Rotation * (M_PI / 180);
-	Vertex1.x = Position.x + Diagonal *sin(asin(Size.y/(2*Diagonal)) + Angle);
-	Vertex1.y = Position.y + Diagonal *cos(asin(Size.y / (2*Diagonal)) + Angle);
-	Vertex2.x = Position.x + Diagonal *sin(M_PI - asin(Size.y / (2 * Diagonal)) +Angle);
-	Vertex2.y = Position.y + Diagonal *cos(M_PI - asin(Size.y / (2 * Diagonal)) + Angle);
-	Vertex3.x = Position.x + Diagonal *sin(M_PI + asin(Size.y / (2 * Diagonal)) + Angle);
-	Vertex3.y = Position.y + Diagonal *cos(M_PI + asin(Size.y / (2 * Diagonal)) + Angle);
-	Vertex4.x = Position.x + Diagonal *sin(- asin(Size.y / (2 * Diagonal)) + Angle);
-	Vertex4.y = Position.y + Diagonal *cos(- asin(Size.y / (2 * Diagonal)) + Angle);
+	
+	Vertex1.x = Position.x + Diagonal * cos(M_PI + asin(Size.y / (2 * Diagonal)) + Angle);
+	Vertex1.y = Position.y + Diagonal * sin(M_PI + asin(Size.y / (2 * Diagonal)) + Angle);
+	Vertex2.x = Position.x + Diagonal * cos(-asin(Size.y / (2 * Diagonal)) + Angle);
+	Vertex2.y = Position.y + Diagonal * sin(-asin(Size.y / (2 * Diagonal)) + Angle);
+	Vertex3.x = Position.x + Diagonal *cos(asin(Size.y/(2*Diagonal)) + Angle);
+	Vertex3.y = Position.y + Diagonal *sin(asin(Size.y / (2*Diagonal)) + Angle);
+	Vertex4.x = Position.x + Diagonal *cos(M_PI - asin(Size.y / (2 * Diagonal)) +Angle);
+	Vertex4.y = Position.y + Diagonal *sin(M_PI - asin(Size.y / (2 * Diagonal)) + Angle);
+	
+	
 	
 	MirrorVectors.push_back(Vertex1);
 	MirrorVectors.push_back(Vertex2);
@@ -147,20 +150,13 @@ bool Sat::CheckSatCollision(RectangleShape Mirror)
 {
 	Vector2f MirrorPosition = Mirror.getPosition();
 	Vector2f thisPosition = GetPosition();
-	
-	
+		
 	getMirrorVectors(Mirror);
 	getLaserVectors();
 	getAxis(Mirror);
 	getNormalised(&Axises[0]);
 	getNormalised(&Axises[1]);
-	std::cout << Axises[0].x << Axises[0].y << std::endl;
-	std::cout << Axises[1].x << Axises[1].y << std::endl;
-	std::cout << Axises[2].x << Axises[2].y << std::endl;
-	std::cout << Axises[3].x << Axises[3].y << std::endl;
-	std::cout << LaserVectors[0].x <<LaserVectors[0].y << std::endl;
 	
-
 
 	for (int i = 0; i < Axises.size(); i++)
 	{
@@ -172,52 +168,61 @@ bool Sat::CheckSatCollision(RectangleShape Mirror)
 		
 		if (intervalDistance > 0) return false; //Collision not occurring
 	}
-
-
-
-
-	
-	
 	
 	return true;
+}
+
+float Sat::CalculatingDistance(int A, int B)
+{
+	Vector2f Intersection1, LaserCenter;
+	float LineDirection,  LineConstant;
+	float Distance1;
+	LaserCenter.x = (LaserVectors[0].x + LaserVectors[2].x) / 2;
+	LaserCenter.y = (LaserVectors[0].y + LaserVectors[2].y) / 2;
+
+	if ((MirrorVectors[A].x - MirrorVectors[B].x) == 0)  //Avoiding division by zero
+	{
+		Distance1 = std::fabs(MirrorVectors[A].x - LaserCenter.x);
+	}
+	else
+	{
+		LineDirection = (MirrorVectors[A].y - MirrorVectors[B].y) / (MirrorVectors[A].x - MirrorVectors[B].x);
+		LineConstant = MirrorVectors[A].y - LineDirection * MirrorVectors[A].x;
+		Distance1 = (std::fabs(LineDirection*LaserCenter.x - LaserCenter.y + LineConstant)) / sqrt(LineDirection*LineDirection + 1);
+	}
+	return Distance1;
+}
+float CalculatingFmin(float Distance1, float Distance2, float Distance3, float Distance4)
+{
+	float Minimum1, Minimum2;
+	Minimum1 = std::fmin(Distance1, Distance2);
+	Minimum2 = std::fmin(Distance3, Distance4);
+	Minimum1 = std::fmin(Minimum1, Minimum2);
+	return Minimum1;
 }
 
 int Sat::CheckWhichAxis(RectangleShape Mirror) // Method currently not used. It was supposed to check with which part of the mirror the laser collides
 {
 	if (CheckSatCollision(Mirror) != true) std::cout << "? ? ? ";
-	float LineDirection, LineConstant, LineDirection2, LineConstant2;
-	float Distance1, Distance2;
-	Vector2f Intersection1,Intersection2,LaserCenter;
-	LaserCenter.x = (MirrorVectors[0].x + MirrorVectors[2].x) / 2;
-	LaserCenter.y = (MirrorVectors[0].y + MirrorVectors[2].y) / 2;
-	
-	
-		// Calculating the distance from one Axis
-	if ((MirrorVectors[0].x - MirrorVectors[1].x) == 0) LineDirection = 3.402823E+38; //Avoiding division by zero
-		else LineDirection = (MirrorVectors[0].y - MirrorVectors[1].y+2.5) / (MirrorVectors[0].x - MirrorVectors[1].x + 2.5);
-		LineConstant = MirrorVectors[0].y - LineDirection * MirrorVectors[0].x;
-		if (LineDirection == 0) LineDirection2 = 3.402823E+38; //Avoiding division by zero
-		else LineDirection2 = -1 / LineDirection;
-		LineConstant2 = LaserVectors[0].y - LineDirection2 * LaserVectors[0].x;
-		Intersection1.x = (LineConstant2 - LineConstant) / (LineDirection - LineDirection2);
-		Intersection1.y = LineConstant + Intersection1.x*LineDirection;
-		Distance1 = sqrt((LaserCenter.x - Intersection1.x)*(LaserCenter.x - Intersection1.x) + (LaserCenter.y - Intersection1.y)*(LaserCenter.y - Intersection1.y));
+	float Distance1, Distance2, Distance3,Distance4,MinimalDistance;
+	Distance1 = CalculatingDistance(0, 1);
+	Distance2 = CalculatingDistance(1, 2);
+	Distance3 = CalculatingDistance(2, 3);
+	Distance4 = CalculatingDistance(0, 3);
 
-
-		// Calculating the distance from another Axis
-		if((MirrorVectors[0].x - MirrorVectors[3].x + 2.5) == 0) LineDirection = 3.402823E+38; //Avoiding division by zero
-			else LineDirection = (MirrorVectors[0].y - MirrorVectors[3].y) / (MirrorVectors[0].x - MirrorVectors[3].x);
-		LineConstant = MirrorVectors[0].y - LineDirection * MirrorVectors[0].x;
-		if (LineDirection == 0) LineDirection2 = 3.402823E+38; //Avoiding division by zero
-		else LineDirection2 = -1.0 / LineDirection;
-		LineConstant2 = LaserVectors[0].y - LineDirection2 * LaserVectors[0].x;
-		Intersection2.x = (LineConstant2 - LineConstant) / (LineDirection - LineDirection2);
-		Intersection2.y = LineConstant + Intersection2.x*LineDirection;
-		Distance2 = sqrt((LaserCenter.x - Intersection2.x)*(LaserCenter.x - Intersection2.x) + (LaserCenter.y - Intersection2.y)*(LaserCenter.y - Intersection2.y));
-
-		if (Distance1 >= Distance2) return 0; // This means that the distance from Axis[1] is smaller which means that the object is collideng with Axis[1]
-		else return 1; // Colliding with the other axis
+	MinimalDistance = CalculatingFmin(Distance1, Distance2, Distance3, Distance4);
 
 	
-	return 0;
+
+	if (MinimalDistance == Distance1) return 1;
+	if (MinimalDistance == Distance2) return 2;
+	if (MinimalDistance == Distance3) return 3;
+	if (MinimalDistance == Distance4) return 4;
+	
+	
+
+
+		
 }
+
+

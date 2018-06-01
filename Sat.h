@@ -29,6 +29,7 @@ public:
 	float GetIntervalDistance(float minA, float maxA, float minB, float maxB);
 	bool CheckSatCollision(sf::RectangleShape);
 	int CheckWhichAxis(sf::RectangleShape);
+	float CalculatingDistance(int, int);
 
 
 	sf::Vector2f GetPosition() { return body.getPosition(); }

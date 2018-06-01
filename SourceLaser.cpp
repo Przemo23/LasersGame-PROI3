@@ -25,6 +25,7 @@ SourceLaser::SourceLaser(int Length, int Height)
 	//Source.setTexture(&SourceTexture);//must be STATIC, never worked
 	Laser.setSize(Vector2f(5.0, 5.0));
 	Laser.setFillColor(Color::Red);
+	ElapsedTime = clock.getElapsedTime();
 	
 	LaserMove = true;
 	if (Length == 0)
@@ -36,7 +37,7 @@ SourceLaser::SourceLaser(int Length, int Height)
 	if (Height == 0)
 	{
 		Source.setRotation(180);
-		Laser.setPosition(Length*30.0 + 16.0, 31.0);
+		Laser.setPosition(Length*30.0 + 15.0, 31.0);
 		dirLaser = Vector2f(0.0f, 5.0f);
 	}
 	if (Length>Height&&Height != 0)
@@ -48,7 +49,7 @@ SourceLaser::SourceLaser(int Length, int Height)
 	if (Length<Height&&Length != 0)
 	{
 		Source.setRotation(0);
-		Laser.setPosition(Length*30.0 + 16.0, Height*30.0 + 1.0);
+		Laser.setPosition(Length*30.0 + 15.0, Height*30.0 - 1.0);
 		dirLaser = Vector2f(0.0f, -5.0f);
 	}
 	baseLaser = Laser.getPosition();
