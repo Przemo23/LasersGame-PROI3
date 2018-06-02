@@ -3,13 +3,15 @@
 #include <SFML\Graphics.hpp>
 
 
+
 class Mirror
 {
 	
 public:
 	Mirror() {};
 	Mirror(int, int);
-	~Mirror() {};
+	~Mirror() { };
+	
 	int CoordinatesX, CoordinatesY;
 	
 

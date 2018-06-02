@@ -9,6 +9,8 @@ class SourceLaser
 {
 
 public:
+	SourceLaser() {};
+	
 	SourceLaser(int Length, int Height);
 	
 	~SourceLaser() {};

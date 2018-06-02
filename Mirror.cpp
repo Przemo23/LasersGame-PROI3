@@ -15,3 +15,5 @@ Mirror::Mirror(int K, int L)
 	
 }
 
+
+
