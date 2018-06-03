@@ -2,7 +2,7 @@
 #pragma once
 #include "stdafx.h"
 #include <vector>
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include "Collider.h"
 #include "Sat.h"
 

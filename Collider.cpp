@@ -1,7 +1,7 @@
-#include "stdafx.h"
+//#include "stdafx.h"
 #include "Collider.h"
 #include <cmath>
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 
 using namespace sf;
 

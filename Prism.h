@@ -1,7 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include <cmath>
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include "Sat.h"
 #include "SourceLaser.h"
 

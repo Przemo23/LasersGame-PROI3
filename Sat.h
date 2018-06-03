@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include <cmath>
 #include <algorithm>
 #include <vector>
@@ -30,7 +30,6 @@ public:
 	bool CheckSatCollision(sf::RectangleShape);
 	int CheckWhichAxis(sf::RectangleShape);
 	float CalculatingDistance(int, int);
-	
 
 
 	sf::Vector2f GetPosition() { return body.getPosition(); }

@@ -1,5 +1,5 @@
 #include "stdafx.h"
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include "Mirror.h"
 
 using namespace sf;

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include <cmath>
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include "Prism.h"
 #include "Sat.h"
 #include "SourceLaser.h"

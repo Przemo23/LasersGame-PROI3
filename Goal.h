@@ -1,6 +1,6 @@
 #pragma once
 #include "stdafx.h"
-#include <SFML\Graphics.hpp>
+#include <SFML/Graphics.hpp>
 #include "Collider.h"
 
 

@@ -1,4 +1,4 @@
-//#include "ResourcePath.hpp" //OSX in Win useless
+﻿//#include "ResourcePath.hpp" //OSX in Win useless
 #include "stdafx.h"
 #include <iostream>
 #include <ctime>
