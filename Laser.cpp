@@ -1,4 +1,4 @@
-﻿//#include "ResourcePath.hpp" //OSX in Win useless
+//#include "ResourcePath.hpp" //OSX in Win useless
 #include "stdafx.h"
 #include <iostream>
 #include <ctime>
@@ -6,6 +6,7 @@
 #include <vector>
 #include <cstdlib>
 #include "Laser.h"
+
 #define PI 3.14159265
 using namespace sf;
 Laser::Laser(int Length, int Height)
@@ -20,7 +21,7 @@ Laser::Laser(int Length, int Height)
 	collisionTimestamp = microseconds(500000);
 	//Source.setTexture(&SourceTexture);//must be STATIC, never worked
 	LaserShape.setSize(Vector2f(5.0, 5.0));
-	
+	Power = 100;
 	LaserShape.setFillColor(Color::White);
 	ElapsedTime = clock.getElapsedTime();
 
@@ -57,7 +58,7 @@ Laser::Laser(sf::Vector2f Position, sf::Color FillingColor, sf::Vector2f Movemen
 {
 	
 	bool MoveCheck = true;
-	
+	Power = 100;
 	collisionTimestamp = microseconds(500000);
 	//Source.setTexture(&SourceTexture);//must be STATIC, never worked
 	LaserShape.setPosition(Position.x, Position.y);

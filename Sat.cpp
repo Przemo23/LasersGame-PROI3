@@ -9,7 +9,7 @@
 
 using namespace sf;
 
-//const float M_PI = 3.14159265;
+const float M_PI = 3.14159265;
 
 
 void Sat::getMirrorVectors(RectangleShape Object)

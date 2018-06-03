@@ -30,6 +30,7 @@ public:
 	bool CheckSatCollision(sf::RectangleShape);
 	int CheckWhichAxis(sf::RectangleShape);
 	float CalculatingDistance(int, int);
+	
 
 
 	sf::Vector2f GetPosition() { return body.getPosition(); }
