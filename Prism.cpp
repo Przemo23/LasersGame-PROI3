@@ -24,6 +24,8 @@ Prism::Prism(int x, int y)
 
 }
 
+
+
 void Prism::Refraction42Sides(sf::RectangleShape Laser, sf::Vector2f* Movement)
 {
 	

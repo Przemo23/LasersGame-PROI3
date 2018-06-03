@@ -12,6 +12,7 @@ public:
 	Prism() {};
 	Prism(int, int);
 	
+	
 	~Prism() {};
 	int CoordinatesX, CoordinatesY;
 	float Rotation;
@@ -22,7 +23,7 @@ public:
 	float RefractionRate;
 
 	sf::RectangleShape PrismShape;
-
+	//sf::LineStrip PrismOutline;
 
 
 };

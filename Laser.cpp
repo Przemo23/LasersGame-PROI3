@@ -6,24 +6,25 @@
 #include <vector>
 #include <cstdlib>
 #include "Laser.h"
-
+#define PI 3.14159265
 using namespace sf;
 Laser::Laser(int Length, int Height)
 {
 	//Texture SourceTexture;
 	//SourceTexture.loadFromFile(resourcePath() + "Source.png");
 	
-	collisionTimestamp = 0;
+	
 	bool MoveCheck = true;
 	CoordinatesX = Length;
 	CoordinatesY = Height;
-	collisionTimestamp = 100;
+	collisionTimestamp = microseconds(500000);
 	//Source.setTexture(&SourceTexture);//must be STATIC, never worked
 	LaserShape.setSize(Vector2f(5.0, 5.0));
-	LaserShape.setFillColor(Color::Red);
+	
+	LaserShape.setFillColor(Color::White);
 	ElapsedTime = clock.getElapsedTime();
 
-	LaserMove = true;
+	
 	if (Length == 0)
 	{
 		
@@ -50,4 +51,53 @@ Laser::Laser(int Length, int Height)
 	}
 	baseLaser = LaserShape.getPosition();
 	baseDirLaser = dirLaser;
+}
+
+Laser::Laser(sf::Vector2f Position, sf::Color FillingColor, sf::Vector2f Movement)
+{
+	
+	bool MoveCheck = true;
+	
+	collisionTimestamp = microseconds(500000);
+	//Source.setTexture(&SourceTexture);//must be STATIC, never worked
+	LaserShape.setPosition(Position.x, Position.y);
+	LaserShape.setSize(Vector2f(5.0, 5.0));
+	LaserShape.setFillColor(FillingColor);
+	ElapsedTime = clock.getElapsedTime();
+
+	
+	
+	dirLaser = LaserIncurvating(Movement, FillingColor);
+	baseDirLaser = dirLaser;
+	baseLaser = Vector2f(500.0, 500.0);
+	clock.restart();
+
+	
+}
+sf::Time Laser::getTime()
+{
+	ElapsedTime = clock.getElapsedTime();
+	return ElapsedTime;
+}
+void Laser::restartTime()
+{
+	clock.restart();
+}
+sf::Vector2f Laser::LaserIncurvating(sf::Vector2f Movement, sf::Color FillingColor)
+{
+	double AngleR; //Angle which will defy how much the new laser incurvates
+	
+	if (FillingColor == sf::Color::Red) AngleR = -5.0;
+	if (FillingColor == sf::Color::Yellow) AngleR = -3.0;
+	if (FillingColor == sf::Color::Green)AngleR = -1.0;
+	if (FillingColor == sf::Color::Blue)AngleR = 1.0;
+	if (FillingColor == sf::Color::Cyan)AngleR = 3.0;
+	if (FillingColor == sf::Color::Magenta)AngleR = 5.0;
+	double Rotation = atan(tan(Movement.y / Movement.x)) + 90;
+	if (Rotation >= 360) Rotation -= 360;
+	AngleR *= PI / 180;
+	
+	Movement.x = Movement.x*cos(AngleR) - Movement.y*sin(AngleR);
+	Movement.y = Movement.y*sin(AngleR) + Movement.x*cos(AngleR);
+	return Movement;
 }
