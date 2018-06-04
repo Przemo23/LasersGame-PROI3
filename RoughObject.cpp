@@ -24,18 +24,18 @@ void RoughObject::Dispersion31( sf::Vector2f * Movement)
 	float Rotation = RoughObjectShape.getRotation();
 
 	
-	srand(time(NULL));
+	
 
 	TempDirection.x = - (Movement->x * cos(1.5 * PI - Rotation * PI / 180) - Movement->y * sin(1.5 * PI - Rotation * PI / 180));
 	TempDirection.y = Movement->x * sin(1.5 * PI - Rotation * PI / 180) + Movement->y * cos(1.5* PI - Rotation * PI / 180);
 	TemporaryValue = sqrt(TempDirection.x*TempDirection.x + TempDirection.y*TempDirection.y);
 	IncidenceAngle = abs(asin(sin(TempDirection.y / TemporaryValue)));
-	RandomAngle = rand() % 40 - 20;
-	TempDirection2.x = TempDirection.x * cos(IncidenceAngle - RandomAngle) - TempDirection.y * sin(IncidenceAngle - RandomAngle);
-	TempDirection2.y = TempDirection.x * sin(IncidenceAngle - RandomAngle) + TempDirection.y * cos(IncidenceAngle - RandomAngle);
-	Movement->x = TempDirection2.x * cos(0.5*PI + Rotation * PI / 180) - TempDirection2.y * sin(0.5*PI + Rotation * PI / 180);
-	Movement->y = TempDirection2.x * sin(0.5*PI + Rotation * PI / 180) + TempDirection2.y * cos(0.5*PI + Rotation * PI / 180);
-
+	RandomAngle = (rand() % 20 - 10 )* PI / 180;;
+	
+	TempDirection2.x = TempDirection.x * cos(0.5*PI + Rotation * PI / 180) - TempDirection.y * sin(0.5*PI + Rotation * PI / 180);
+	TempDirection2.y = TempDirection.x * sin(0.5*PI + Rotation * PI / 180) + TempDirection.y * cos(0.5*PI + Rotation * PI / 180);
+	Movement->x = TempDirection2.x * cos(RandomAngle) - TempDirection2.y * sin(RandomAngle);
+	Movement->y = TempDirection2.x * sin(RandomAngle) + TempDirection2.y * cos(RandomAngle);
 }
 
 void RoughObject::Dispersion42(sf::Vector2f * Movement)
@@ -50,11 +50,11 @@ void RoughObject::Dispersion42(sf::Vector2f * Movement)
 	TempDirection.y = Movement->x * sin(2 * PI - Rotation * PI / 180) + Movement->y * cos(2 * PI - Rotation * PI / 180);
 	TemporaryValue = sqrt(TempDirection.x*TempDirection.x + TempDirection.y*TempDirection.y);
 	IncidenceAngle = abs(asin(sin(TempDirection.y / TemporaryValue)));
-	RandomAngle = (rand() % 40 - 20)*PI / 180;
-	TempDirection2.x = TempDirection.x * cos(IncidenceAngle - RandomAngle) - TempDirection.y * sin(IncidenceAngle - RandomAngle);
-	TempDirection2.y = TempDirection.x * sin(IncidenceAngle - RandomAngle) + TempDirection.y * cos(IncidenceAngle - RandomAngle);
-	Movement->x = TempDirection2.x * cos(Rotation * PI / 180) - TempDirection2.y * sin(Rotation * PI / 180);
-	Movement->y = TempDirection2.x * sin(Rotation * PI / 180) + TempDirection2.y * cos(Rotation * PI / 180);
+	RandomAngle = (rand() % 20 - 10)*PI / 180;
+	TempDirection2.x = TempDirection.x * cos(Rotation * PI / 180) - TempDirection.y * sin(Rotation * PI / 180);
+	TempDirection2.y = TempDirection.x * sin(Rotation * PI / 180) + TempDirection.y * cos(Rotation * PI / 180);
+	Movement->x = TempDirection2.x * cos(RandomAngle) - TempDirection2.y * sin(RandomAngle);
+	Movement->y = TempDirection2.x * sin( RandomAngle) + TempDirection2.y * cos( RandomAngle);
 }
 
 Color RoughObject::ChangingColor(Color LaserColor)
