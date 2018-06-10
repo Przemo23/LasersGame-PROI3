@@ -1,4 +1,5 @@
 #pragma once
+#pragma once
 #include "stdafx.h"
 #include <SFML/Graphics.hpp>
 #include "Sat.h"
@@ -10,8 +11,8 @@ public:
 	Wall() {};
 	Wall(int Length, int Height);
 	~Wall() {};
-
-	void StopMovement(sf::Vector2f*);
+	int CoordinatesX, CoordinatesY;
+	
 
 	sf::RectangleShape WallShape;
 

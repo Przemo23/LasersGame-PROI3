@@ -30,6 +30,8 @@ public:
 	bool CheckSatCollision(sf::RectangleShape);
 	int CheckWhichAxis(sf::RectangleShape);
 	float CalculatingDistance(int, int);
+	void MirrorCollision13(sf::Vector2f*, float);
+	void MirrorCollision24(sf::Vector2f*, float);
 
 
 	sf::Vector2f GetPosition() { return body.getPosition(); }

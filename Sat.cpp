@@ -5,11 +5,11 @@
 #include <cmath>
 #include <vector>
 #include <iostream>
-
+#define PI 3.14159265
 
 using namespace sf;
 
-//const float M_PI = 3.14159265;
+const float M_PI = 3.14159265;
 
 
 void Sat::getMirrorVectors(RectangleShape Object)
@@ -191,6 +191,24 @@ float Sat::CalculatingDistance(int A, int B)
 		Distance1 = (std::fabs(LineDirection*LaserCenter.x - LaserCenter.y + LineConstant)) / sqrt(LineDirection*LineDirection + 1);
 	}
 	return Distance1;
+}
+void Sat::MirrorCollision13(sf::Vector2f *Movement, float MirrorRotation)
+{
+	Vector2f TempDirection;
+	TempDirection.x = -(Movement->x * cos(1.5 * PI - MirrorRotation * PI / 180) - Movement->y * sin(1.5 * PI - MirrorRotation * PI / 180));
+	TempDirection.y = Movement->x * sin(1.5 * PI - MirrorRotation * PI / 180) + Movement->y * cos(1.5 * PI - MirrorRotation * PI / 180);
+	Movement->x = TempDirection.x * cos(0.5*PI + MirrorRotation * PI / 180) - TempDirection.y* sin(0.5*PI + MirrorRotation * PI / 180);
+	Movement->y = TempDirection.x* sin(0.5*PI + MirrorRotation * PI / 180) + TempDirection.y * cos(0.5*PI + MirrorRotation * PI / 180);
+
+}
+void Sat::MirrorCollision24(sf::Vector2f *Movement, float MirrorRotation)
+{
+	Vector2f TempDirection;
+	TempDirection.x = -(Movement->x * cos(2 * PI - MirrorRotation * PI / 180) - Movement->y * sin(2 * PI - MirrorRotation * PI / 180));
+	TempDirection.y = Movement->x * sin(2 * PI - MirrorRotation * PI / 180) + Movement->y * cos(2 * PI - MirrorRotation * PI / 180);
+	Movement->x = TempDirection.x * cos(MirrorRotation * PI / 180) - TempDirection.y * sin( MirrorRotation * PI / 180);
+	Movement->y = TempDirection.x * sin( MirrorRotation * PI / 180) + TempDirection.y * cos(MirrorRotation * PI / 180);
+
 }
 float CalculatingFmin(float Distance1, float Distance2, float Distance3, float Distance4)
 {

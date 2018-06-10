@@ -26,14 +26,14 @@ Prism::Prism(int x, int y)
 
 
 
-void Prism::Refraction42Sides(sf::RectangleShape Laser, sf::Vector2f* Movement)
+void Prism::Refraction42Sides( sf::Vector2f* Movement)
 {
 	
-	
-		Vector2f TempDirection, PrismSize;
+	float Rotation = PrismShape.getRotation();
+	Vector2f TempDirection, TempDirection2;
 		float IncidenceAngle, ReflectionAngle;
 		float TemporaryValue;
-		PrismSize = PrismShape.getSize();
+		
 		
 		
 		TempDirection.x = (Movement->x * cos(2 * PI - Rotation * PI / 180) - Movement->y * sin(2 * PI - Rotation * PI / 180));
@@ -41,21 +41,22 @@ void Prism::Refraction42Sides(sf::RectangleShape Laser, sf::Vector2f* Movement)
 		TemporaryValue = sqrt(TempDirection.x*TempDirection.x + TempDirection.y*TempDirection.y);
 		IncidenceAngle = abs(asin(sin(TempDirection.y / TemporaryValue)));
 		ReflectionAngle = asin(sin(IncidenceAngle) / RefractionRate);
-		TempDirection.x = TempDirection.x * cos(IncidenceAngle - ReflectionAngle) - TempDirection.y * sin(IncidenceAngle - ReflectionAngle);
-		TempDirection.y = TempDirection.x * sin(IncidenceAngle - ReflectionAngle) + TempDirection.y * cos(IncidenceAngle - ReflectionAngle);
-		Movement->x = TempDirection.x * cos(Rotation * PI / 180) - TempDirection.y * sin(Rotation * PI / 180);
-		Movement->y = TempDirection.x * sin(Rotation * PI / 180) + TempDirection.y * cos(Rotation * PI / 180);
+		TempDirection2.x = TempDirection.x * cos(IncidenceAngle - ReflectionAngle) - TempDirection.y * sin(IncidenceAngle - ReflectionAngle);
+		TempDirection2.y = TempDirection.x * sin(IncidenceAngle - ReflectionAngle) + TempDirection.y * cos(IncidenceAngle - ReflectionAngle);
+		Movement->x = TempDirection2.x * cos(Rotation * PI / 180) - TempDirection2.y * sin(Rotation * PI / 180);
+		Movement->y = TempDirection2.x * sin(Rotation * PI / 180) + TempDirection2.y * cos(Rotation * PI / 180);
 	
 
 
 
 }
-void Prism::Refraction31Sides(sf::RectangleShape Laser, sf::Vector2f* Movement)
+void Prism::Refraction31Sides( sf::Vector2f* Movement)
 {
-	Vector2f TempDirection, PrismSize;
+	float Rotation = PrismShape.getRotation();
+	Vector2f TempDirection, TempDirection2;
 	float IncidenceAngle, ReflectionAngle;
 	float TemporaryValue;
-	PrismSize = PrismShape.getSize();
+	
 
 
 	TempDirection.x = (Movement->x * cos(1.5 * PI - Rotation * PI / 180) - Movement->y * sin(1.5 * PI - Rotation * PI / 180));
@@ -63,10 +64,10 @@ void Prism::Refraction31Sides(sf::RectangleShape Laser, sf::Vector2f* Movement)
 	TemporaryValue = sqrt(TempDirection.x*TempDirection.x + TempDirection.y*TempDirection.y);
 	IncidenceAngle = abs(asin(sin(TempDirection.y / TemporaryValue)));
 	ReflectionAngle = asin(sin(IncidenceAngle) / RefractionRate);
-	TempDirection.x = TempDirection.x * cos(IncidenceAngle - ReflectionAngle) - TempDirection.y * sin(IncidenceAngle - ReflectionAngle);
-	TempDirection.y = TempDirection.x * sin(IncidenceAngle - ReflectionAngle) + TempDirection.y * cos(IncidenceAngle - ReflectionAngle);
-	Movement->x = TempDirection.x * cos(0.5*PI + Rotation * PI / 180) - TempDirection.y * sin(0.5*PI + Rotation * PI / 180);
-	Movement->y = TempDirection.x * sin(0.5*PI + Rotation * PI / 180) + TempDirection.y * cos(0.5*PI + Rotation * PI / 180);
+	TempDirection2.x = TempDirection.x * cos(IncidenceAngle - ReflectionAngle) - TempDirection.y * sin(IncidenceAngle - ReflectionAngle);
+	TempDirection2.y = TempDirection.x * sin(IncidenceAngle - ReflectionAngle) + TempDirection.y * cos(IncidenceAngle - ReflectionAngle);
+	Movement->x = TempDirection2.x * cos(0.5*PI + Rotation * PI / 180) - TempDirection2.y * sin(0.5*PI + Rotation * PI / 180);
+	Movement->y = TempDirection2.x * sin(0.5*PI + Rotation * PI / 180) + TempDirection2.y * cos(0.5*PI + Rotation * PI / 180);
 	
 
 }
