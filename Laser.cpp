@@ -54,11 +54,11 @@ Laser::Laser(int Length, int Height)
 	baseDirLaser = dirLaser;
 }
 
-Laser::Laser(sf::Vector2f Position, sf::Color FillingColor, sf::Vector2f Movement)
+Laser::Laser(sf::Vector2f Position, sf::Color FillingColor, sf::Vector2f Movement, int number)
 {
 	
 	bool MoveCheck = true;
-	Power = 100;
+	Power = 100/number;
 	collisionTimestamp = microseconds(500000);
 	//Source.setTexture(&SourceTexture);//must be STATIC, never worked
 	LaserShape.setPosition(Position.x, Position.y);
@@ -67,8 +67,9 @@ Laser::Laser(sf::Vector2f Position, sf::Color FillingColor, sf::Vector2f Movemen
 	ElapsedTime = clock.getElapsedTime();
 
 	
-	
-	dirLaser = LaserIncurvating(Movement, FillingColor);
+	dirLaser.x = Movement.x;
+	dirLaser.y = Movement.y;
+	//dirLaser = LaserIncurvating(Movement, FillingColor);
 	baseDirLaser = dirLaser;
 	baseLaser = Vector2f(500.0, 500.0);
 	clock.restart();
@@ -84,21 +85,23 @@ void Laser::restartTime()
 {
 	clock.restart();
 }
-sf::Vector2f Laser::LaserIncurvating(sf::Vector2f Movement, sf::Color FillingColor)
+void Laser::LaserIncurvating()
 {
 	double AngleR; //Angle which will defy how much the new laser incurvates
-	
-	if (FillingColor == sf::Color::Red) AngleR = -5.0;
-	if (FillingColor == sf::Color::Yellow) AngleR = -3.0;
-	if (FillingColor == sf::Color::Green)AngleR = -1.0;
-	if (FillingColor == sf::Color::Blue)AngleR = 1.0;
-	if (FillingColor == sf::Color::Cyan)AngleR = 3.0;
-	if (FillingColor == sf::Color::Magenta)AngleR = 5.0;
-	double Rotation = atan(tan(Movement.y / Movement.x)) + 90;
+	sf::Vector2f TempDirection;
+	sf::Color FillingColor = LaserShape.getFillColor();
+	if (FillingColor == sf::Color::Red) AngleR = -10.0;
+	if (FillingColor == sf::Color::Yellow) AngleR = -6.0;
+	if (FillingColor == sf::Color::Green)AngleR = -2.0;
+	if (FillingColor == sf::Color::Blue)AngleR =2.0;
+	if (FillingColor == sf::Color::Cyan)AngleR = 6.0;
+	if (FillingColor == sf::Color::Magenta)AngleR = 10.0;
+	double Rotation = atan(tan(dirLaser.y / dirLaser.x)) + 90;
 	if (Rotation >= 360) Rotation -= 360;
 	AngleR *= PI / 180;
+	TempDirection.x = dirLaser.x;
+	TempDirection.y = dirLaser.y;
+	dirLaser.x = TempDirection.x*cos(AngleR) - TempDirection.y*sin(AngleR);
+	dirLaser.y = TempDirection.x*sin(AngleR) + TempDirection.y*cos(AngleR);
 	
-	Movement.x = Movement.x*cos(AngleR) - Movement.y*sin(AngleR);
-	Movement.y = Movement.y*sin(AngleR) + Movement.x*cos(AngleR);
-	return Movement;
 }

@@ -13,7 +13,7 @@ class Laser
 		Laser() {};
 
 		Laser(int Length, int Height);
-		Laser(sf::Vector2f, sf::Color, sf::Vector2f);
+		Laser(sf::Vector2f, sf::Color, sf::Vector2f,int);
 		~Laser() {};
 
 
@@ -31,7 +31,7 @@ class Laser
 		int Power;
 		sf::Clock clock;
 		sf::Time ElapsedTime;
-		sf::Vector2f LaserIncurvating(sf::Vector2f, sf::Color);
+		void LaserIncurvating();
 		Sat CheckMirrorCollision() { return Sat(LaserShape); }
 		Collider getCollider() { return Collider(LaserShape); }
 };

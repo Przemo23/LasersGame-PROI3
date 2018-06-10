@@ -14,8 +14,7 @@ public:
 	~RoughObject() {};
 	sf::Color FillingColor;
 	int CoordinatesX, CoordinatesY;
-	void Dispersion31(sf::Vector2f*);
-	void Dispersion42(sf::Vector2f*);
+	sf::Vector2f Dispersion(sf::Vector2f);
 
 	sf::Color ChangingColor(sf::Color);
 
