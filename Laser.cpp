@@ -105,3 +105,15 @@ void Laser::LaserIncurvating()
 	dirLaser.y = TempDirection.x*sin(AngleR) + TempDirection.y*cos(AngleR);
 	
 }
+
+bool Laser::DistanceToObject(sf::RectangleShape Object)
+{
+	Vector2f LaserPosition, ObjectPosition;
+	float Distance,MaxDistance;
+	ObjectPosition = Object.getPosition();
+	LaserPosition = LaserShape.getPosition();
+	Distance = sqrt((LaserPosition.x - ObjectPosition.x)*(LaserPosition.x - ObjectPosition.x) + (LaserPosition.y - ObjectPosition.y)*(LaserPosition.y - ObjectPosition.y));
+	MaxDistance = sqrt(LaserPosition.x*LaserPosition.x + LaserPosition.y*LaserPosition.y) / 2 + sqrt(ObjectPosition.x*ObjectPosition.x + ObjectPosition.y*ObjectPosition.y) / 2;
+	if (MaxDistance < Distance) return false;
+	else return true;
+}

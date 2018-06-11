@@ -32,6 +32,7 @@ class Laser
 		sf::Clock clock;
 		sf::Time ElapsedTime;
 		void LaserIncurvating();
+		bool DistanceToObject(sf::RectangleShape);
 		Sat CheckMirrorCollision() { return Sat(LaserShape); }
 		Collider getCollider() { return Collider(LaserShape); }
 };
