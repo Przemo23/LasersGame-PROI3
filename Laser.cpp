@@ -6,9 +6,17 @@
 #include <vector>
 #include <cstdlib>
 #include "Laser.h"
+#include "Sat.h"
 
 #define PI 3.14159265
 using namespace sf;
+/*Laser& Laser::operator=(const Laser & Another)
+{
+	//this->dirLaser = Another.dirLaser;
+
+	return *this;
+	// TODO: tu wstawiæ instrukcjê return
+}*/
 Laser::Laser(int Length, int Height)
 {
 	//Texture SourceTexture;
@@ -104,4 +112,18 @@ void Laser::LaserIncurvating()
 	dirLaser.x = TempDirection.x*cos(AngleR) - TempDirection.y*sin(AngleR);
 	dirLaser.y = TempDirection.x*sin(AngleR) + TempDirection.y*cos(AngleR);
 	
+}
+
+bool Laser::DistanceToObject(sf::RectangleShape Object)
+{
+	Vector2f LaserPosition, ObjectPosition;
+	float Distance,MaxDistance;
+	ObjectPosition = Object.getPosition();
+	LaserPosition = LaserShape.getPosition();
+	LaserPosition.x += 2.5;
+	LaserPosition.y += 2.5;
+	Distance = sqrt((LaserPosition.x  - ObjectPosition.x)*(LaserPosition.x - ObjectPosition.x) + (LaserPosition.y - ObjectPosition.y)*(LaserPosition.y - ObjectPosition.y));
+	MaxDistance = sqrt(LaserPosition.x*LaserPosition.x + LaserPosition.y*LaserPosition.y) / 2 + sqrt(ObjectPosition.x*ObjectPosition.x + ObjectPosition.y*ObjectPosition.y) / 2;
+	if (MaxDistance < Distance) return false;
+	else return true;
 }
