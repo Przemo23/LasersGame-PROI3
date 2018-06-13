@@ -38,10 +38,10 @@ void Sat::getMirrorVectors(RectangleShape Object)
 	MirrorVectors.push_back(Vertex4);
 }
 
-void Sat::getLaserVectors()
+void Sat::getLaserVectors(RectangleShape Laser)
 {
 	Vector2f Vertex1, Vertex2, Vertex3, Vertex4;
-	Vector2f Position = GetPosition();
+	Vector2f Position = Laser.getPosition();
 
 	Vertex1.x = Position.x ;
 	Vertex1.y = Position.y ;
@@ -146,13 +146,13 @@ float Sat::GetIntervalDistance(float minA, float maxA, float minB, float maxB)
 }
 
 
-bool Sat::CheckSatCollision(RectangleShape Mirror)
+bool Sat::CheckSatCollision(RectangleShape Mirror,RectangleShape Laser)
 {
 	Vector2f MirrorPosition = Mirror.getPosition();
-	Vector2f thisPosition = GetPosition();
+	Vector2f thisPosition = Laser.getPosition();
 		
 	getMirrorVectors(Mirror);
-	getLaserVectors();
+	getLaserVectors(Laser);
 	getAxis(Mirror);
 	getNormalised(&Axises[0]);
 	getNormalised(&Axises[1]);
@@ -160,16 +160,23 @@ bool Sat::CheckSatCollision(RectangleShape Mirror)
 
 	for (int i = 0; i < Axises.size(); i++)
 	{
-		float minA=0.0, minB=0.0, maxA=0.0, maxB=0.0;
+		float minA = 0.0, minB = 0.0, maxA = 0.0, maxB = 0.0;
 		Project(i, &minB, &maxB);
 		ProjectLaser(i, &minA, &maxA);
 
 		float intervalDistance = GetIntervalDistance(minA, maxA, minB, maxB);
-		
-		if (intervalDistance > 0) return false; //Collision not occurring
+
+		if (intervalDistance > 0)
+		{
+			LaserVectors.clear();
+			MirrorVectors.clear();
+			Axises.clear();
+			return false; //Collision not occurring
+
+		}
 	}
-	
 	return true;
+	
 }
 
 float Sat::CalculatingDistance(int A, int B)
@@ -177,6 +184,7 @@ float Sat::CalculatingDistance(int A, int B)
 	Vector2f Intersection1, LaserCenter;
 	float LineDirection,  LineConstant;
 	float Distance1;
+	
 	LaserCenter.x = (LaserVectors[0].x + LaserVectors[2].x) / 2;
 	LaserCenter.y = (LaserVectors[0].y + LaserVectors[2].y) / 2;
 
@@ -219,9 +227,9 @@ float CalculatingFmin(float Distance1, float Distance2, float Distance3, float D
 	return Minimum1;
 }
 
-int Sat::CheckWhichAxis(RectangleShape Mirror) // Method currently not used. It was supposed to check with which part of the mirror the laser collides
+int Sat::CheckWhichAxis(RectangleShape Mirror) //  It is supposed to check with which part of the mirror the laser collides
 {
-	if (CheckSatCollision(Mirror) != true) std::cout << "? ? ? ";
+	
 	float Distance1, Distance2, Distance3,Distance4,MinimalDistance;
 	Distance1 = CalculatingDistance(0, 1);
 	Distance2 = CalculatingDistance(1, 2);
@@ -230,7 +238,9 @@ int Sat::CheckWhichAxis(RectangleShape Mirror) // Method currently not used. It 
 
 	MinimalDistance = CalculatingFmin(Distance1, Distance2, Distance3, Distance4);
 
-	
+	LaserVectors.clear();
+	MirrorVectors.clear();
+	Axises.clear();
 
 	if (MinimalDistance == Distance1) return 1;
 	if (MinimalDistance == Distance2) return 2;

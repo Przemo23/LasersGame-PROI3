@@ -6,12 +6,15 @@
 #include "Collider.h"
 #include "Sat.h"
 
-class Laser
+class Laser:public Sat
 {
 
 	public:
 		Laser() {};
-
+		//Laser(const Laser&) {};
+		//Laser(Laser&) = default;
+		
+		//Laser& operator=(const Laser&) ;
 		Laser(int Length, int Height);
 		Laser(sf::Vector2f, sf::Color, sf::Vector2f,int);
 		~Laser() {};
@@ -33,6 +36,6 @@ class Laser
 		sf::Time ElapsedTime;
 		void LaserIncurvating();
 		bool DistanceToObject(sf::RectangleShape);
-		Sat CheckMirrorCollision() { return Sat(LaserShape); }
+		//Sat CheckMirrorCollision() { return Sat(LaserShape); }
 		Collider getCollider() { return Collider(LaserShape); }
 };

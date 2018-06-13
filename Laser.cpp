@@ -6,9 +6,17 @@
 #include <vector>
 #include <cstdlib>
 #include "Laser.h"
+#include "Sat.h"
 
 #define PI 3.14159265
 using namespace sf;
+/*Laser& Laser::operator=(const Laser & Another)
+{
+	//this->dirLaser = Another.dirLaser;
+
+	return *this;
+	// TODO: tu wstawiæ instrukcjê return
+}*/
 Laser::Laser(int Length, int Height)
 {
 	//Texture SourceTexture;
@@ -112,7 +120,9 @@ bool Laser::DistanceToObject(sf::RectangleShape Object)
 	float Distance,MaxDistance;
 	ObjectPosition = Object.getPosition();
 	LaserPosition = LaserShape.getPosition();
-	Distance = sqrt((LaserPosition.x - ObjectPosition.x)*(LaserPosition.x - ObjectPosition.x) + (LaserPosition.y - ObjectPosition.y)*(LaserPosition.y - ObjectPosition.y));
+	LaserPosition.x += 2.5;
+	LaserPosition.y += 2.5;
+	Distance = sqrt((LaserPosition.x  - ObjectPosition.x)*(LaserPosition.x - ObjectPosition.x) + (LaserPosition.y - ObjectPosition.y)*(LaserPosition.y - ObjectPosition.y));
 	MaxDistance = sqrt(LaserPosition.x*LaserPosition.x + LaserPosition.y*LaserPosition.y) / 2 + sqrt(ObjectPosition.x*ObjectPosition.x + ObjectPosition.y*ObjectPosition.y) / 2;
 	if (MaxDistance < Distance) return false;
 	else return true;
