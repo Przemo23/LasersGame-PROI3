@@ -14,7 +14,7 @@ public:
 	int BoostRate;
 	~Booster() {};
 	int CoordinatesX, CoordinatesY;
-	void Boost(int* Power);
+	void Boost(float* Power);
 
 	sf::RectangleShape BoosterShape;
 

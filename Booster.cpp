@@ -12,7 +12,7 @@ Booster::Booster(int x, int y)
 	CoordinatesY = y;
 }
 
-void Booster::Boost(int * Power)
+void Booster::Boost(float * Power)
 {
 	*Power *= BoostRate;
 }

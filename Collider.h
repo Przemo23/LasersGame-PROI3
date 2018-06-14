@@ -5,21 +5,18 @@
 class Collider
 {
 	public:
-		//Collider() {};
-		Collider(sf::RectangleShape &body) : body(body) {};
-		
+		Collider() {};
 		~Collider() {};
-
-		bool CheckCollision(Collider );
-		bool CheckCollisionGoal(sf::CircleShape);
-		sf::Vector2f GetPosition() { return body.getPosition(); }
-		sf::Vector2f GetHalfSize() { return body.getSize() / 2.0f; }
+		
+		 bool CheckCollision(sf::RectangleShape,sf::RectangleShape );
+		//bool CheckCollisionGoal(sf::CircleShape);
+		//sf::Vector2f GetPosition(Rect) { return body.getPosition(); }
+		sf::Vector2f GetHalfSize(sf::RectangleShape sth) { return sth.getSize() / 2.0f; }
 		
 		
 		
-		void move(float dx, float dy) { body.move(dx, dy); }
-	private:
-		sf::RectangleShape& body;
+		
+	
 
 
 

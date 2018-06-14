@@ -29,7 +29,7 @@ Laser::Laser(int Length, int Height)
 	collisionTimestamp = microseconds(500000);
 	//Source.setTexture(&SourceTexture);//must be STATIC, never worked
 	LaserShape.setSize(Vector2f(5.0, 5.0));
-	Power = 100;
+	Power = 100.0;
 	LaserShape.setFillColor(Color::White);
 	ElapsedTime = clock.getElapsedTime();
 

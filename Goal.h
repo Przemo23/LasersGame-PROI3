@@ -8,12 +8,17 @@ class Goal
 {
 public:
 	Goal() {};
-	Goal(int Lenght, int Height);
+	Goal(int Lenght, int Height, sf::Color,int);
 	~Goal() {};
-	unsigned int PowerCap;
+	float PowerCap;
+	sf::Color Color;
+	int CoordinatesX, CoordinatesY;
 
-	Collider getCollider() { return Collider(GoalShape); }
-
+	float GoalSaturation;
+	sf::RectangleShape PowerBar;
+	sf::RectangleShape PowerBackground;
+	//Collider getCollider() { return Collider(GoalShape); }
+	void UpdateBar();
 	sf::RectangleShape GoalShape;
 
 };

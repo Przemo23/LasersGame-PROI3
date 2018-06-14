@@ -6,7 +6,7 @@
 #include "Collider.h"
 #include "Sat.h"
 
-class Laser:public Sat
+class Laser:public Sat,public Collider
 {
 
 	public:
@@ -30,11 +30,11 @@ class Laser:public Sat
 		
 		sf::Time getTime();
 		void restartTime();
-		int Power;
+		float Power;
 		sf::Clock clock;
 		sf::Time ElapsedTime;
 		void LaserIncurvating();
 		bool DistanceToObject(sf::RectangleShape);
 		//Sat CheckMirrorCollision() { return Sat(LaserShape); }
-		Collider getCollider() { return Collider(LaserShape); }
+		//Collider getCollider() { return Collider(LaserShape); }
 };
