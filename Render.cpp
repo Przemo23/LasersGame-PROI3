@@ -1,4 +1,4 @@
-#include "stdafx.h"
+﻿#include "stdafx.h"
 #include <SFML/Graphics.hpp>
 #include <SFML/Window.hpp>
 #include "Render.h"
