@@ -10,6 +10,7 @@ public:
 	Goal() {};
 	Goal(int Lenght, int Height);
 	~Goal() {};
+	unsigned int PowerCap;
 
 	Collider getCollider() { return Collider(GoalShape); }
 

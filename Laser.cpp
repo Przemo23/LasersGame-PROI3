@@ -38,28 +38,27 @@ Laser::Laser(int Length, int Height)
 	{
 		
 		LaserShape.setPosition(30.0, Height*30.0 + 15.0);
-		dirLaser = Vector2f(5.0f, 0.0f);
+		dirLaser = Vector2f(10.0f, 0.0f);
 	}
 	if (Height == 0)
 	{
 		
 		LaserShape.setPosition(Length*30.0 + 15.0, 31.0);
-		dirLaser = Vector2f(0.0f, 5.0f);
+		dirLaser = Vector2f(0.0f, 10.0f);
 	}
 	if (Length>Height&&Height != 0)
 	{
 		
 		LaserShape.setPosition(Length*30.0 + 1.0, Height*30.0 + 16.0);
-		dirLaser = Vector2f(-5.0f, 0.0f);
+		dirLaser = Vector2f(-10.0f, 0.0f);
 	}
 	if (Length<Height&&Length != 0)
 	{
 		
 		LaserShape.setPosition(Length*30.0 + 15.0, Height*30.0 - 1.0);
-		dirLaser = Vector2f(0.0f, -5.0f);
+		dirLaser = Vector2f(0.0f, -10.0f);
 	}
-	baseLaser = LaserShape.getPosition();
-	baseDirLaser = dirLaser;
+	
 }
 
 Laser::Laser(sf::Vector2f Position, sf::Color FillingColor, sf::Vector2f Movement, int number)
@@ -78,8 +77,7 @@ Laser::Laser(sf::Vector2f Position, sf::Color FillingColor, sf::Vector2f Movemen
 	dirLaser.x = Movement.x;
 	dirLaser.y = Movement.y;
 	//dirLaser = LaserIncurvating(Movement, FillingColor);
-	baseDirLaser = dirLaser;
-	baseLaser = Vector2f(500.0, 500.0);
+	
 	clock.restart();
 
 	

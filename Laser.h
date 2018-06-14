@@ -23,8 +23,7 @@ class Laser:public Sat
 		
 		sf::RectangleShape LaserShape;
 		sf::Vector2f dirLaser;
-		sf::Vector2f baseLaser;
-		sf::Vector2f baseDirLaser;
+		
 		sf::Time collisionTimestamp;
 		bool MoveCheck;
 			int CoordinatesX, CoordinatesY;

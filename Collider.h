@@ -5,6 +5,7 @@
 class Collider
 {
 	public:
+		//Collider() {};
 		Collider(sf::RectangleShape &body) : body(body) {};
 		
 		~Collider() {};
