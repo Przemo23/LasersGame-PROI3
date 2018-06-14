@@ -18,7 +18,7 @@ public:
 	sf::RectangleShape PowerBar;
 	sf::RectangleShape PowerBackground;
 	//Collider getCollider() { return Collider(GoalShape); }
-	void UpdateBar();
+	void UpdateBar(int);
 	sf::RectangleShape GoalShape;
 
 };

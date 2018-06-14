@@ -25,7 +25,7 @@ class Laser:public Sat,public Collider
 		sf::Vector2f dirLaser;
 		
 		sf::Time collisionTimestamp;
-		bool MoveCheck;
+		
 			int CoordinatesX, CoordinatesY;
 		
 		sf::Time getTime();

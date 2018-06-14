@@ -21,7 +21,7 @@ Goal::Goal(int Length, int Height,sf::Color color,int i)
 	Color = color;
 	
 	PowerBar.setSize(Vector2f(0.0, 20.0));
-	PowerBar.setFillColor(sf::Color::Magenta);
+	PowerBar.setFillColor(Color);
 	PowerBar.setPosition(650.0, 40.0*i);
 	
 	PowerBackground.setSize(Vector2f(100.0, 20.0));
@@ -32,8 +32,10 @@ Goal::Goal(int Length, int Height,sf::Color color,int i)
 	
 }
 
-void Goal::UpdateBar()
+void Goal::UpdateBar(int k)
 {
 	
 	PowerBar.setSize(Vector2f(100.0 * (GoalSaturation / PowerCap), 20.0));
+	PowerBar.setPosition(650.0, 40.0*(k+1));
+	PowerBackground.setPosition(650.0, 40.0*(k+1));
 }

@@ -23,7 +23,7 @@ Laser::Laser(int Length, int Height)
 	//SourceTexture.loadFromFile(resourcePath() + "Source.png");
 	
 	
-	bool MoveCheck = true;
+	
 	CoordinatesX = Length;
 	CoordinatesY = Height;
 	collisionTimestamp = microseconds(500000);
@@ -64,7 +64,7 @@ Laser::Laser(int Length, int Height)
 Laser::Laser(sf::Vector2f Position, sf::Color FillingColor, sf::Vector2f Movement, int number)
 {
 	
-	bool MoveCheck = true;
+	
 	Power = 100/number;
 	collisionTimestamp = microseconds(500000);
 	//Source.setTexture(&SourceTexture);//must be STATIC, never worked
