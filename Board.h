@@ -1,4 +1,5 @@
 #pragma once
+
 #include "stdafx.h" //OSX in OSX useless
 #include <SFML/Graphics.hpp> //OSX "/" UNIX vs "\" Windows
 //#include <SFML/Color.hpp>
@@ -17,21 +18,13 @@
 #include "Booster.h"
 #include "RoughObject.h"
 #include "Wall.h"
-#define PI 3.14159265
-#include "ResourcePath.hpp" //OSX in Win useless
 
 
 class Board
 {
 public:
 	Board() {};
-	Board(int a);
+	void Board1();
 	~Board() {};
-    
-    sf::Window window;
-    int isEdit;
-    int win;
-    
-
 
 };
